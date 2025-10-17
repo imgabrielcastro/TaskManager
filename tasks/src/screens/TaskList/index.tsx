@@ -7,10 +7,12 @@ import todayImage from '../../assets/imgs/today.jpg';
 export default function TaskList(){
     return (
         <VStack style={{flex: 1}} >
-            <ImageBackground source={todayImage} style={{flex: 1}} >
-
+            <ImageBackground source={todayImage} style={{flex: 3}} >
             </ImageBackground>
-            <Text>Task List</Text>
+
+            <View style={{flex: 7}}>
+            <Text style={{fontSize: 24, color: '#000'}}>Task List</Text>
+            </View>
         </VStack> 
     );
 }
