@@ -1,18 +1,38 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
-import VStack from '../../components/Stacks/VStack';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ImageBackground,
+} from "react-native";
+import VStack from "../../components/Stacks/VStack";
 
-import todayImage from '../../assets/imgs/today.jpg';
+import moment from "moment";
+import "moment/locale/pt-br";
 
-export default function TaskList(){
-    return (
-        <VStack style={{flex: 1}} >
-            <ImageBackground source={todayImage} style={{flex: 3}} >
-            </ImageBackground>
+import todayImage from "../../assets/imgs/today.jpg";
 
-            <View style={{flex: 7}}>
-            <Text style={{fontSize: 24, color: '#000'}}>Task List</Text>
-            </View>
-        </VStack> 
-    );
+export default function TaskList() {
+  const today = moment().locale("pt-br").format("dddd, D [de] MMMM [de] YYYY");
+  return (
+    <VStack style={{ flex: 1, backgroundColor: "#fff" }}>
+      <ImageBackground source={todayImage} style={{ flex: 3 }}>
+        <VStack
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            padding: 12,
+          }}
+        >
+          <Text>Hoje</Text>
+          <Text style={{ color: "#fff" }}>{today}</Text>
+        </VStack>
+      </ImageBackground>
+
+      <View style={{ flex: 7 }}>
+        <Text style={{ fontSize: 24, color: "#fff" }}>Task List</Text>
+      </View>
+    </VStack>
+  );
 }
