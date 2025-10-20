@@ -53,8 +53,8 @@ export default function TaskList() {
       </ImageBackground>
 
       <View style={{ flex: 7 }}>
-      <Task desc="Estudar React Native" estimateAt={new Date()} doneAt={null} />
-      <Task desc="Jogar Bola" estimateAt={new Date()} doneAt={null} />
+      <Task desc="Estudar React Native" estimateAt={new Date()} doneAt={new Date()} />
+      <Task desc="Jogar Bola" estimateAt={new Date()} doneAt={new Date()} />
       <Task desc="Fazer Compras" estimateAt={new Date()} doneAt={null} />
       </View>
     </VStack>
