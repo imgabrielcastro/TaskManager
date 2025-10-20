@@ -1,7 +1,6 @@
 export default {
-    fontFamily: 'Lato',
-    colors : {
-        secondary: '#fff',
-}
-
-}
+  fontFamily: "Avenir",
+  colors: {
+    secondary: "#fff",
+  },
+};

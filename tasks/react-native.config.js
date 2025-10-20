@@ -1,3 +1,3 @@
 module.exports = {
-   assets: ['./assets/fonts/']
+   assets: ['../tasks/src/assets/fonts/Lato.ttf']
 }
