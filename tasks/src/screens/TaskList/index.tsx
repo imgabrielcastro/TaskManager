@@ -5,6 +5,8 @@ import VStack from "../../components/Stacks/VStack";
 import { theme } from "../../themes/theme";
 import { Button, Text } from "react-native-paper";
 
+import Task from "../../components/Task"; 
+
 import moment from "moment";
 import "moment/locale/pt-br";
 
@@ -51,16 +53,9 @@ export default function TaskList() {
       </ImageBackground>
 
       <View style={{ flex: 7 }}>
-        <Text
-          style={{
-            fontSize: 24,
-            color: theme.colors.background,
-            fontFamily: commonStyles.fontFamily,
-          }}
-        >
-          Task List
-        </Text>
-        
+      <Task desc="Estudar React Native" estimateAt={new Date()} doneAt={null} />
+      <Task desc="Jogar Bola" estimateAt={new Date()} doneAt={null} />
+      <Task desc="Fazer Compras" estimateAt={new Date()} doneAt={null} />
       </View>
     </VStack>
   );
