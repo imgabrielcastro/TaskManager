@@ -1,15 +1,19 @@
 import React from "react";
 import {
   View,
-  Text,
   StyleSheet,
   FlatList,
   ImageBackground,
 } from "react-native";
 import VStack from "../../components/Stacks/VStack";
 
+import theme from "../../themes/theme";
+import { Button, Text } from "react-native-paper";
+
 import moment from "moment";
 import "moment/locale/pt-br";
+
+import commonStyles from "../../constants/commonStyles";
 
 import todayImage from "../../assets/imgs/today.jpg";
 
@@ -25,13 +29,13 @@ export default function TaskList() {
             padding: 12,
           }}
         >
-          <Text>Hoje</Text>
-          <Text style={{ color: "#fff" }}>{today}</Text>
+          <Text variant="bodyMedium">Hoje</Text>
+          <Text style={{ color: theme.colors.background }}>{today}</Text>
         </VStack>
       </ImageBackground>
 
       <View style={{ flex: 7 }}>
-        <Text style={{ fontSize: 24, color: "#fff" }}>Task List</Text>
+        <Text style={{ fontSize: 24, color: theme.colors.background }}>Task List</Text>
       </View>
     </VStack>
   );
