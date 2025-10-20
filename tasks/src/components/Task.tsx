@@ -6,6 +6,8 @@ import { StyleSheet, View } from "react-native";
 import HStack from "./Stacks/HStack";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SCREEN_WIDTH, SCREEN_HEIGHT as width } from "../constants";
+import moment from "moment";
+import "moment/locale/pt-br";
 
 interface ITaskProps {
   desc: string;
@@ -34,6 +36,10 @@ export default function Task({ desc, estimateAt, doneAt }: ITaskProps) {
     }
   }
 
+  const date = doneAt ? doneAt : estimateAt;
+  const formattedDate = moment(date).locale("pt-br").format("ddd, D [de] MMMM");
+  const todayCapitalized = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+
   return (
     <HStack
       style={{
@@ -49,7 +55,7 @@ export default function Task({ desc, estimateAt, doneAt }: ITaskProps) {
 
       <VStack>
         <Text
-          variant="bodyMedium"
+          variant="bodyLarge"
           style={{
             textDecorationLine: doneAt ? "line-through" : "none",
             color: theme.colors.primary,
@@ -57,8 +63,8 @@ export default function Task({ desc, estimateAt, doneAt }: ITaskProps) {
         >
           {desc}
         </Text>
-        <Text variant="bodyMedium" style={styles.taskContainer}>
-          {estimateAt.toString()}
+        <Text variant="bodyMedium" style={{ fontFamily: commonStyles.fontFamily, color: theme.colors.secondary }}>
+          {todayCapitalized}
         </Text>
       </VStack>
     </HStack>
