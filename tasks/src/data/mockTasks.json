@@ -1,0 +1,29 @@
+{
+  "tasks": [
+    {
+      "desc": "Estudar React Native",
+      "estimateAt": "2025-10-20T10:00:00.000Z",
+      "doneAt": null
+    },
+  {
+    "desc": "Fazer treino na academia",
+    "estimateAt": "2025-10-19T18:30:00.000Z",
+    "doneAt": "2025-10-19T19:45:00.000Z"
+  },
+  {
+    "desc": "Ler capítulo do livro Clean Code",
+    "estimateAt": "2025-10-21T21:00:00.000Z",
+    "doneAt": null
+  },
+  {
+    "desc": "Enviar relatório do projeto",
+    "estimateAt": "2025-10-18T15:00:00.000Z",
+    "doneAt": "2025-10-18T14:45:00.000Z"
+  },
+  {
+    "desc": "Organizar tarefas da semana",
+    "estimateAt": "2025-10-22T09:30:00.000Z",
+    "doneAt": null
+  }
+]
+}

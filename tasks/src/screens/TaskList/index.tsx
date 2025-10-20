@@ -1,22 +1,20 @@
 import React from "react";
 import { View, StyleSheet, FlatList, ImageBackground } from "react-native";
 import VStack from "../../components/Stacks/VStack";
-
 import { theme } from "../../themes/theme";
 import { Button, Text } from "react-native-paper";
-
-import Task from "../../components/Task"; 
-
+import Task from "../../components/Task";
 import moment from "moment";
 import "moment/locale/pt-br";
-
 import commonStyles from "../../constants/commonStyles";
-
 import todayImage from "../../assets/imgs/today.jpg";
+import mockData from "../../data/mockTasks.json";
 
 export default function TaskList() {
   const today = moment().locale("pt-br").format("ddd, D [de] MMMM [de] YYYY");
   const todayCapitalized = today.charAt(0).toUpperCase() + today.slice(1);
+  const tasks = mockData?.tasks || [];
+
   return (
     <VStack style={{ flex: 1, backgroundColor: theme.colors.text }}>
       <ImageBackground source={todayImage} style={{ flex: 3 }}>
@@ -53,9 +51,17 @@ export default function TaskList() {
       </ImageBackground>
 
       <View style={{ flex: 7 }}>
-      <Task desc="Estudar React Native" estimateAt={new Date()} doneAt={new Date()} />
-      <Task desc="Jogar Bola" estimateAt={new Date()} doneAt={new Date()} />
-      <Task desc="Fazer Compras" estimateAt={new Date()} doneAt={null} />
+        <FlatList
+          data={tasks}
+          keyExtractor={(item) => item.desc.toString()}
+          renderItem={({ item }) => (
+            <Task
+              desc={item.desc}
+              estimateAt={new Date(item.estimateAt)}
+              doneAt={item.doneAt ? new Date(item.doneAt) : null}
+            />
+          )}
+        />
       </View>
     </VStack>
   );
