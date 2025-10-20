@@ -13,7 +13,8 @@ import commonStyles from "../../constants/commonStyles";
 import todayImage from "../../assets/imgs/today.jpg";
 
 export default function TaskList() {
-  const today = moment().locale("pt-br").format("dddd, D [de] MMMM [de] YYYY");
+  const today = moment().locale("pt-br").format("ddd, D [de] MMMM [de] YYYY");
+  const todayCapitalized = today.charAt(0).toUpperCase() + today.slice(1);
   return (
     <VStack style={{ flex: 1, backgroundColor: theme.colors.text }}>
       <ImageBackground source={todayImage} style={{ flex: 3 }}>
@@ -24,15 +25,42 @@ export default function TaskList() {
             padding: 12,
           }}
         >
-          <Text variant="displayLarge" style={{fontFamily: commonStyles.fontFamily, color: theme.colors.text, marginBottom: 20, marginLeft: 4}}>Hoje</Text>
-          <Text style={{ color: theme.colors.text }}>{today}</Text>
+          <Text
+            variant="displayLarge"
+            style={{
+              fontFamily: commonStyles.fontFamily,
+              color: theme.colors.text,
+              marginBottom: 20,
+              marginLeft: 20,
+            }}
+          >
+            Hoje
+          </Text>
+          <Text
+            variant="titleLarge"
+            style={{
+              color: theme.colors.text,
+              fontFamily: commonStyles.fontFamily,
+              marginLeft: 20,
+              marginBottom: 30,
+            }}
+          >
+            {todayCapitalized}
+          </Text>
         </VStack>
       </ImageBackground>
 
       <View style={{ flex: 7 }}>
-        <Text style={{ fontSize: 24, color:  theme.colors.background, fontFamily: commonStyles.fontFamily }}>
+        <Text
+          style={{
+            fontSize: 24,
+            color: theme.colors.background,
+            fontFamily: commonStyles.fontFamily,
+          }}
+        >
           Task List
         </Text>
+        
       </View>
     </VStack>
   );
