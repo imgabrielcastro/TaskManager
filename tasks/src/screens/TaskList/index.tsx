@@ -1,8 +1,8 @@
-import React from "react";
-import { View, StyleSheet, FlatList, ImageBackground } from "react-native";
+import React, { useState, useCallback } from "react";
+import { View, FlatList, ImageBackground } from "react-native";
 import VStack from "../../components/Stacks/VStack";
 import { theme } from "../../themes/theme";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import Task from "../../components/Task";
 import moment from "moment";
 import "moment/locale/pt-br";
@@ -10,10 +10,36 @@ import commonStyles from "../../constants/commonStyles";
 import todayImage from "../../assets/imgs/today.jpg";
 import mockData from "../../data/mockTasks.json";
 
+// ✅ define a interface fora do componente
+interface ITask {
+  id: number;
+  desc: string;
+  estimateAt: Date;
+  doneAt?: Date | null;
+}
+
 export default function TaskList() {
   const today = moment().locale("pt-br").format("ddd, D [de] MMMM [de] YYYY");
   const todayCapitalized = today.charAt(0).toUpperCase() + today.slice(1);
-  const tasks = mockData?.tasks || [];
+
+  const [tasks, setTasks] = useState<ITask[]>(
+    (mockData?.tasks || []).map((task) => ({
+      ...task,
+      id: Number(task.id),
+      estimateAt: new Date(task.estimateAt),
+      doneAt: task.doneAt ? new Date(task.doneAt) : null,
+    }))
+  );
+
+  const toggleTask = useCallback((taskId: number) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId
+          ? { ...task, doneAt: task.doneAt ? null : new Date() }
+          : task
+      )
+    );
+  }, []);
 
   return (
     <VStack style={{ flex: 1, backgroundColor: theme.colors.text }}>
@@ -56,9 +82,11 @@ export default function TaskList() {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Task
+              id={item.id}
+              toggleTask={toggleTask}
               desc={item.desc}
-              estimateAt={new Date(item.estimateAt)}
-              doneAt={item.doneAt ? new Date(item.doneAt) : null}
+              estimateAt={item.estimateAt}
+              doneAt={item.doneAt}
             />
           )}
         />

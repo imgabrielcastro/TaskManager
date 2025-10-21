@@ -2,21 +2,28 @@ import { theme } from "../themes/theme";
 import { Text } from "react-native-paper";
 import VStack from "./Stacks/VStack";
 import commonStyles from "../constants/commonStyles";
-import { StyleSheet} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
 import HStack from "./Stacks/HStack";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "../constants";
 import moment from "moment";
 import "moment/locale/pt-br";
 
-
 interface ITaskProps {
   desc: string;
   estimateAt: Date;
   doneAt?: Date | null;
+  toggleTask: (taskId: number) => void;
+  id: number;
 }
 
-export default function Task({ desc, estimateAt, doneAt }: ITaskProps) {
+export default function Task({
+  desc,
+  estimateAt,
+  doneAt,
+  toggleTask,
+  id,
+}: ITaskProps) {
   const doneOrNot = doneAt
     ? { textDecorationLine: "line-through" }
     : { textDecorationLine: "none" };
@@ -39,7 +46,8 @@ export default function Task({ desc, estimateAt, doneAt }: ITaskProps) {
 
   const date = doneAt ? doneAt : estimateAt;
   const formattedDate = moment(date).locale("pt-br").format("ddd, D [de] MMMM");
-  const todayCapitalized = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+  const todayCapitalized =
+    formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
   return (
     <HStack
@@ -50,9 +58,15 @@ export default function Task({ desc, estimateAt, doneAt }: ITaskProps) {
         alignItems: "center",
       }}
     >
-      <VStack style={{ width: SCREEN_WIDTH * 0.2 }}>
-        {getCheckView(doneAt)}
-      </VStack>
+      <TouchableOpacity
+        onPress={() => {
+          toggleTask(id);
+        }}
+      >
+        <VStack style={{ width: SCREEN_WIDTH * 0.15 }}>
+          {getCheckView(doneAt)}
+        </VStack>
+      </TouchableOpacity>
 
       <VStack>
         <Text
@@ -64,7 +78,13 @@ export default function Task({ desc, estimateAt, doneAt }: ITaskProps) {
         >
           {desc}
         </Text>
-        <Text variant="bodyMedium" style={{ fontFamily: commonStyles.fontFamily, color: theme.colors.secondary }}>
+        <Text
+          variant="bodyMedium"
+          style={{
+            fontFamily: commonStyles.fontFamily,
+            color: theme.colors.secondary,
+          }}
+        >
           {todayCapitalized}
         </Text>
       </VStack>
