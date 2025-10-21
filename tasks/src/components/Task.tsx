@@ -2,12 +2,13 @@ import { theme } from "../themes/theme";
 import { Text } from "react-native-paper";
 import VStack from "./Stacks/VStack";
 import commonStyles from "../constants/commonStyles";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet} from "react-native";
 import HStack from "./Stacks/HStack";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { SCREEN_WIDTH, SCREEN_HEIGHT as width } from "../constants";
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from "../constants";
 import moment from "moment";
 import "moment/locale/pt-br";
+
 
 interface ITaskProps {
   desc: string;

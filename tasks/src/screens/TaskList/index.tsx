@@ -53,7 +53,7 @@ export default function TaskList() {
       <View style={{ flex: 7 }}>
         <FlatList
           data={tasks}
-          keyExtractor={(item) => item.desc.toString()}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Task
               desc={item.desc}
