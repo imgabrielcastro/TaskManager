@@ -9,6 +9,7 @@ import "moment/locale/pt-br";
 import commonStyles from "../../constants/commonStyles";
 import todayImage from "../../assets/imgs/today.jpg";
 import mockData from "../../data/mockTasks.json";
+import { SCREEN_HEIGHT } from "../../constants";
 
 // ✅ define a interface fora do componente
 interface ITask {
@@ -43,7 +44,7 @@ export default function TaskList() {
 
   return (
     <VStack style={{ flex: 1, backgroundColor: theme.colors.text }}>
-      <ImageBackground source={todayImage} style={{ flex: 3 }}>
+      <ImageBackground source={todayImage} style={{ height: SCREEN_HEIGHT * 0.30 }}>
         <VStack
           style={{
             flex: 1,
@@ -76,7 +77,7 @@ export default function TaskList() {
         </VStack>
       </ImageBackground>
 
-      <View style={{ flex: 7 }}>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={tasks}
           keyExtractor={(item) => item.id.toString()}
