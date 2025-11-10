@@ -1,5 +1,11 @@
-import React, { useState, useCallback } from "react";
-import { View, FlatList, ImageBackground, TouchableOpacity, Platform } from "react-native";
+import React, { useState, useCallback, useEffect } from "react";
+import {
+  View,
+  FlatList,
+  ImageBackground,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import VStack from "../../components/Stacks/VStack";
 import { theme } from "../../themes/theme";
 import { Text } from "react-native-paper";
@@ -10,7 +16,7 @@ import commonStyles from "../../constants/commonStyles";
 import todayImage from "../../assets/imgs/today.jpg";
 import mockData from "../../data/mockTasks.json";
 import { SCREEN_HEIGHT } from "../../constants";
-import Icon from "react-native-vector-icons/FontAwesome"
+import Icon from "react-native-vector-icons/FontAwesome";
 import HStack from "../../components/Stacks/HStack";
 
 interface ITask {
@@ -21,7 +27,8 @@ interface ITask {
 }
 
 export default function TaskList() {
-  const [showDoneTasks, setShowDoneTasks] = useState(true)
+  const [showDoneTasks, setShowDoneTasks] = useState(true);
+
   const today = moment().locale("pt-br").format("ddd, D [de] MMMM [de] YYYY");
   const todayCapitalized = today.charAt(0).toUpperCase() + today.slice(1);
 
@@ -34,9 +41,19 @@ export default function TaskList() {
     }))
   );
 
-  const toggleFilter = () =>{
-    setShowDoneTasks(!showDoneTasks)
-  }
+  const [visibleTasks, setVisibleTasks] = useState<ITask[]>([...tasks]);
+
+  const toggleFilter = () => {
+    setShowDoneTasks(!showDoneTasks);
+  };
+
+  useEffect(() => {
+    if (showDoneTasks) {
+      setVisibleTasks(tasks);
+    } else {
+      setVisibleTasks(tasks.filter((task) => task.doneAt !== null));
+    }
+  }, [showDoneTasks, tasks]);
 
   const toggleTask = useCallback((taskId: number) => {
     setTasks((prevTasks) =>
@@ -54,9 +71,19 @@ export default function TaskList() {
         source={todayImage}
         style={{ height: SCREEN_HEIGHT * 0.3 }}
       >
-
-        <HStack style={{marginHorizontal: 20, justifyContent: 'flex-end', marginTop: Platform.OS=== "ios" ? 40 : 10}}>
-          <Icon name={showDoneTasks ? "eye" : "eye-slash"} size={50} color={theme.colors.text} onPress={toggleFilter}/>
+        <HStack
+          style={{
+            marginHorizontal: 20,
+            justifyContent: "flex-end",
+            marginTop: Platform.OS === "ios" ? 40 : 10,
+          }}
+        >
+          <Icon
+            name={showDoneTasks ? "eye" : "eye-slash"}
+            size={40}
+            color={theme.colors.text}
+            onPress={toggleFilter}
+          />
         </HStack>
 
         <VStack
@@ -93,7 +120,7 @@ export default function TaskList() {
 
       <View style={{ flex: 1 }}>
         <FlatList
-          data={tasks}
+          data={visibleTasks}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Task
