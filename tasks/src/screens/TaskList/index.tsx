@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { View, FlatList, ImageBackground } from "react-native";
+import { View, FlatList, ImageBackground, TouchableOpacity, Platform } from "react-native";
 import VStack from "../../components/Stacks/VStack";
 import { theme } from "../../themes/theme";
 import { Text } from "react-native-paper";
@@ -10,6 +10,8 @@ import commonStyles from "../../constants/commonStyles";
 import todayImage from "../../assets/imgs/today.jpg";
 import mockData from "../../data/mockTasks.json";
 import { SCREEN_HEIGHT } from "../../constants";
+import Icon from "react-native-vector-icons/FontAwesome"
+import HStack from "../../components/Stacks/HStack";
 
 interface ITask {
   id: number;
@@ -19,6 +21,7 @@ interface ITask {
 }
 
 export default function TaskList() {
+  const [showDoneTasks, setShowDoneTasks] = useState(true)
   const today = moment().locale("pt-br").format("ddd, D [de] MMMM [de] YYYY");
   const todayCapitalized = today.charAt(0).toUpperCase() + today.slice(1);
 
@@ -30,6 +33,10 @@ export default function TaskList() {
       doneAt: task.doneAt ? new Date(task.doneAt) : null,
     }))
   );
+
+  const toggleFilter = () =>{
+    setShowDoneTasks(!showDoneTasks)
+  }
 
   const toggleTask = useCallback((taskId: number) => {
     setTasks((prevTasks) =>
@@ -47,6 +54,11 @@ export default function TaskList() {
         source={todayImage}
         style={{ height: SCREEN_HEIGHT * 0.3 }}
       >
+
+        <HStack style={{marginHorizontal: 20, justifyContent: 'flex-end', marginTop: Platform.OS=== "ios" ? 40 : 10}}>
+          <Icon name={showDoneTasks ? "eye" : "eye-slash"} size={50} color={theme.colors.text} onPress={toggleFilter}/>
+        </HStack>
+
         <VStack
           style={{
             flex: 1,
