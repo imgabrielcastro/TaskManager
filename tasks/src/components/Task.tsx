@@ -53,9 +53,12 @@ export default function Task({
     <HStack
       style={{
         borderColor: theme.colors.background,
-        borderWidth: 1,
+        borderWidth: 0.2,
+        borderRadius: 12,
+        marginHorizontal: 12,
         padding: 12,
         alignItems: "center",
+        marginVertical: 4,
       }}
     >
       <TouchableOpacity

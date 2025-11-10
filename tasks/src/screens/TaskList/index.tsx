@@ -11,7 +11,6 @@ import todayImage from "../../assets/imgs/today.jpg";
 import mockData from "../../data/mockTasks.json";
 import { SCREEN_HEIGHT } from "../../constants";
 
-// ✅ define a interface fora do componente
 interface ITask {
   id: number;
   desc: string;
@@ -44,7 +43,10 @@ export default function TaskList() {
 
   return (
     <VStack style={{ flex: 1, backgroundColor: theme.colors.text }}>
-      <ImageBackground source={todayImage} style={{ height: SCREEN_HEIGHT * 0.30 }}>
+      <ImageBackground
+        source={todayImage}
+        style={{ height: SCREEN_HEIGHT * 0.3 }}
+      >
         <VStack
           style={{
             flex: 1,
